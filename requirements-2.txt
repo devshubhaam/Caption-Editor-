@@ -1,0 +1,4 @@
+python-telegram-bot==21.5
+asyncio
+# Optional MongoDB support:
+# pymongo==4.9.1
