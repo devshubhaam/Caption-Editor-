@@ -1,0 +1,12 @@
+# render.yaml — Render.com deployment config
+services:
+  - type: worker
+    name: bulk-caption-bot
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: python main.py
+    envVars:
+      - key: BOT_TOKEN
+        sync: false
+      - key: ADMIN_IDS
+        sync: false
