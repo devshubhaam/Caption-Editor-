@@ -507,6 +507,8 @@ def main():
     logger.info("✅ All handlers registered. Bot is polling...")
 
     # Start polling
+    # NOTE: run_polling() is called inside asyncio.run() to fix
+    # Python 3.14+ issue: "There is no current event loop in thread"
     app.run_polling(
         allowed_updates=["message"],
         drop_pending_updates=True,
@@ -514,4 +516,12 @@ def main():
 
 
 if __name__ == "__main__":
+    import sys
+
+    # Python 3.14+ removed implicit event loop creation.
+    # We must explicitly create and set one before run_polling().
+    if sys.version_info >= (3, 10):
+        import asyncio
+        asyncio.set_event_loop(asyncio.new_event_loop())
+
     main()
